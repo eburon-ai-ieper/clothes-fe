@@ -10,6 +10,8 @@ import {
   type SendPhotoResponse,
 } from "@/api/sendPhoto";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 const CheckFit = () => {
   const { id } = useParams();
@@ -30,6 +32,7 @@ const CheckFit = () => {
       }
     } catch (err) {
       console.error("Error accessing camera:", err);
+      toast.error("Unable to access camera. Please check permissions.");
     }
   };
 
@@ -94,6 +97,10 @@ const CheckFit = () => {
       queryClient.setQueryData(["measurementResult"], data);
       navigate(`/clothing/${id}/person`);
     },
+    onError: () => {
+      toast.error("Failed to process the photo. Please try again.");
+      navigate("/");
+    },
   });
 
   // Start countdown on button click
@@ -111,7 +118,7 @@ const CheckFit = () => {
 
   return (
     <Wrapper>
-      <div className="h-[70vh] mt-10 w-[70vw] rounded-2xl bg-[#d9d9d9] flex items-center justify-center relative">
+      <div className="h-[70vh] w-[70vw] rounded-2xl bg-[#d9d9d9] flex items-center justify-center relative">
         {!photo && (
           <video
             ref={videoRef}
@@ -137,7 +144,7 @@ const CheckFit = () => {
       </div>
 
       <p className="text-gray-500 text-sm mt-2">
-        Please, stay 1 meter from the screen
+        Please, take a full height photo for better measurements.
       </p>
 
       <div className="mt-4 flex flex-col items-center gap-2">
@@ -145,11 +152,16 @@ const CheckFit = () => {
           disabled={mutation.isPending}
           onClick={photo ? handleProceed : handleStartMeasuring}
         >
-          {mutation.isPending
-            ? "Loading..."
-            : photo
-            ? "Proceed With Measurements"
-            : "Start Measuring"}
+          {mutation.isPending ? (
+            <div className="flex gap-2 items-center">
+              <p>Loading</p>
+              <Spinner />
+            </div>
+          ) : photo ? (
+            "Start Measuring"
+          ) : (
+            "Take a Photo"
+          )}
         </Button>
         <Button variant="outline" onClick={handleRestart}>
           Restart

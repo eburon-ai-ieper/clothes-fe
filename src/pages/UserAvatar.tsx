@@ -4,7 +4,7 @@ import Wrapper from "@/ui/wrapper";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import QR from "@/public/GwXFgi.svg";
+import QR from "@/public/qr.svg";
 
 const UserAvatar = () => {
   const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ const UserAvatar = () => {
         <div className="flex justify-center items-center">
           {data?.image ? (
             <img
-              className="rounded-2xl w-auto object-contain"
+              className="rounded-2xl w-auto md:max-w-[600px] object-contain"
               src={data.image}
               alt="User Avatar"
             />
@@ -35,21 +35,21 @@ const UserAvatar = () => {
 
         <div>
           <div className="text-center mb-2">
-            <p className="text-sm text-center text-gray-500">Costumes</p>
-            <h3 className="text-lg font-bold ">Hugo Boss Costume</h3>
+            <p className="text-sm text-center text-gray-500">Suits</p>
+            <h3 className="text-lg font-bold ">Claude Bonucci Suit</h3>
             <p className="text-sm text-center text-gray-500">
-              Avant-garde Hugo Boss costume featuring deconstructed design and
-              refined, modern tailoring.
+              Avant-garde Claude Bonucci costume featuring deconstructed design
+              and refined, modern tailoring.
             </p>
           </div>
 
           <div className="flex justify-center gap-2 mt-4">
-            <Badge>XL</Badge> <Badge>Male</Badge> <Badge>In Stock</Badge>{" "}
-            <Badge variant="destructive">Not In Stock</Badge>
+            <Badge>Custom</Badge>
+            <Badge>In Stock</Badge>
           </div>
         </div>
       </div>
-      <img src={QR} alt="Qr code" />
+      <img className="md:max-w-[400px]" src={QR} alt="Qr code" />
     </Wrapper>
   );
 };

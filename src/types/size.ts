@@ -1,6 +1,5 @@
 export interface Size {
     id: number;
-    clothingId: number;
-    size_label: string;
+    sizeLabel: string;
     quantity: number;
 }

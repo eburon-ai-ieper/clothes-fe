@@ -1,3 +1,5 @@
+import type { Size } from "./size";
+
 export interface Clothing {
     id: number;
     name: string;
@@ -8,6 +10,7 @@ export interface Clothing {
     inStock: boolean;
     category: string;
     brand: string;
+    sizes: Size[]
     createdAt: Date;
     updatedAt: Date;
 }
